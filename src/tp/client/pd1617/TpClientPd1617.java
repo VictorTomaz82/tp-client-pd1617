@@ -5,7 +5,7 @@ import java.util.Scanner;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import tpserver.*;
-//teste
+//teste1
 public class TpClientPd1617 {
 
     static ConciergeRemote concierge;
