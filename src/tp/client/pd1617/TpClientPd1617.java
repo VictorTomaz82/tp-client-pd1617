@@ -8,81 +8,81 @@ import tpserver.*;
 
 public class TpClientPd1617 {
 
-    static ConciergeRemote concierge;
-    static PatronRemote patron;
+//    static ConciergeRemote concierge;
+//    static PatronRemote patron;
     static ButlerRemote butler;
 
-    static void obtemReferenciaConcierge() {
-        InitialContext ctx = null;
-        Properties prop = new Properties();
-
-        prop.setProperty("java.naming.factory.initial",
-                "com.sun.enterprise.naming.SerialInitContextFactory");
-        prop.setProperty("java.naming.factory.url.pkgs",
-                "com.sun.enterprise.naming");
-        prop.setProperty("java.naming.factory.state",
-                "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-        prop.setProperty("org.omg.CORBA.ORBInitialHost", "192.168.56.175");
-        prop.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
-
-        try {
-            ctx = new InitialContext(prop);
-        } catch (NamingException e) {
-            System.out.println(e.getMessage());
-            System.exit(1);
-        }
-        //System.out.println("InitialContext Criado");
-
-        String class_name
-                = "java:global/tp-ea-pd1617/tp-ea-pd1617-ejb/Concierge!tpserver.ConciergeRemote";
-
-        try {
-            //System.out.println("A conectar ao servidor. Aguarde por favor...");
-            Object x = ctx.lookup(class_name);
-            concierge = (ConciergeRemote) x;
-        } catch (NamingException e) {
-            System.out.println(e.getMessage());
-            System.exit(2);
-        }
-        // System.out.print("...JNDI lookup concluido\n");
-
-    }
-
-    static void obtemReferenciaPatron() {
-        InitialContext ctx = null;
-        Properties prop = new Properties();
-
-        prop.setProperty("java.naming.factory.initial",
-                "com.sun.enterprise.naming.SerialInitContextFactory");
-        prop.setProperty("java.naming.factory.url.pkgs",
-                "com.sun.enterprise.naming");
-        prop.setProperty("java.naming.factory.state",
-                "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-        prop.setProperty("org.omg.CORBA.ORBInitialHost", "192.168.56.175");
-        prop.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
-
-        try {
-            ctx = new InitialContext(prop);
-        } catch (NamingException e) {
-            System.out.println(e.getMessage());
-            System.exit(1);
-        }
-        //System.out.println("InitialContext Criado");
-
-        String class_name
-                = "java:global/tp-ea-pd1617/tp-ea-pd1617-ejb/Patron!tpserver.PatronRemote";
-
-        try {
-            //System.out.println("A conectar ao servidor. Aguarde por favor...");
-            Object x = ctx.lookup(class_name);
-            patron = (PatronRemote) x;
-        } catch (NamingException e) {
-            System.out.println(e.getMessage());
-            System.exit(2);
-        }
-        //System.out.print("...JNDI lookup concluido\n");
-
-    }
+//    static void obtemReferenciaConcierge() {
+//        InitialContext ctx = null;
+//        Properties prop = new Properties();
+//
+//        prop.setProperty("java.naming.factory.initial",
+//                "com.sun.enterprise.naming.SerialInitContextFactory");
+//        prop.setProperty("java.naming.factory.url.pkgs",
+//                "com.sun.enterprise.naming");
+//        prop.setProperty("java.naming.factory.state",
+//                "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
+//        prop.setProperty("org.omg.CORBA.ORBInitialHost", "192.168.56.175");
+//        prop.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
+//
+//        try {
+//            ctx = new InitialContext(prop);
+//        } catch (NamingException e) {
+//            System.out.println(e.getMessage());
+//            System.exit(1);
+//        }
+//        //System.out.println("InitialContext Criado");
+//
+//        String class_name
+//                = "java:global/tp-ea-pd1617/tp-ea-pd1617-ejb/Concierge!tpserver.ConciergeRemote";
+//
+//        try {
+//            //System.out.println("A conectar ao servidor. Aguarde por favor...");
+//            Object x = ctx.lookup(class_name);
+//            concierge = (ConciergeRemote) x;
+//        } catch (NamingException e) {
+//            System.out.println(e.getMessage());
+//            System.exit(2);
+//        }
+//        // System.out.print("...JNDI lookup concluido\n");
+//
+//    }
+//
+//    static void obtemReferenciaPatron() {
+//        InitialContext ctx = null;
+//        Properties prop = new Properties();
+//
+//        prop.setProperty("java.naming.factory.initial",
+//                "com.sun.enterprise.naming.SerialInitContextFactory");
+//        prop.setProperty("java.naming.factory.url.pkgs",
+//                "com.sun.enterprise.naming");
+//        prop.setProperty("java.naming.factory.state",
+//                "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
+//        prop.setProperty("org.omg.CORBA.ORBInitialHost", "192.168.56.175");
+//        prop.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
+//
+//        try {
+//            ctx = new InitialContext(prop);
+//        } catch (NamingException e) {
+//            System.out.println(e.getMessage());
+//            System.exit(1);
+//        }
+//        //System.out.println("InitialContext Criado");
+//
+//        String class_name
+//                = "java:global/tp-ea-pd1617/tp-ea-pd1617-ejb/Patron!tpserver.PatronRemote";
+//
+//        try {
+//            //System.out.println("A conectar ao servidor. Aguarde por favor...");
+//            Object x = ctx.lookup(class_name);
+//            patron = (PatronRemote) x;
+//        } catch (NamingException e) {
+//            System.out.println(e.getMessage());
+//            System.exit(2);
+//        }
+//        //System.out.print("...JNDI lookup concluido\n");
+//
+//    }
 
     static void obtemReferenciaButler() {
         InitialContext ctx = null;
@@ -128,8 +128,8 @@ public class TpClientPd1617 {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("A conectar ao servidor. Aguarde por favor...");
-        obtemReferenciaConcierge();
-        obtemReferenciaPatron();
+//        obtemReferenciaConcierge();
+//        obtemReferenciaPatron();
         obtemReferenciaButler();
         System.out.print("...JNDI lookup concluido\n");
 
@@ -137,7 +137,9 @@ public class TpClientPd1617 {
         System.out.println("-          Casa do Povo            -");
         System.out.println("------------------------------------");
 
-        System.out.println("concierge: " + concierge.teste() + "; butler: " + butler.teste() + "; patron: " + patron.teste());
+        // --- debug (begin) ---
+        System.out.println("butler: " + butler.teste());
+        // --- debug (end) ---
 
         do {
             System.out.println("1 - Ver noticias");
