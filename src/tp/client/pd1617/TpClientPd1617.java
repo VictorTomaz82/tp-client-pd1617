@@ -1,5 +1,6 @@
 package tp.client.pd1617;
 
+import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
 import javax.naming.InitialContext;
@@ -12,7 +13,7 @@ public class TpClientPd1617 {
 //    static PatronRemote patron;
     static ButlerRemote butler;
 
-//    static void obtemReferenciaConcierge() {
+//    static void callConcierge() {
 //        InitialContext ctx = null;
 //        Properties prop = new Properties();
 //
@@ -48,7 +49,7 @@ public class TpClientPd1617 {
 //
 //    }
 //
-//    static void obtemReferenciaPatron() {
+//    static void callPatron() {
 //        InitialContext ctx = null;
 //        Properties prop = new Properties();
 //
@@ -83,8 +84,7 @@ public class TpClientPd1617 {
 //        //System.out.print("...JNDI lookup concluido\n");
 //
 //    }
-
-    static void obtemReferenciaButler() {
+    static void callButler() {
         InitialContext ctx = null;
         Properties prop = new Properties();
 
@@ -103,35 +103,58 @@ public class TpClientPd1617 {
             System.out.println(e.getMessage());
             System.exit(1);
         }
-        //System.out.println("InitialContext Criado");
 
         String class_name
                 = "java:global/tp-ea-pd1617/tp-ea-pd1617-ejb/Butler!tpserver.ButlerRemote";
 
         try {
-            //System.out.println("A conectar ao servidor. Aguarde por favor...");
+            System.out.println("A conectar ao servidor. Aguarde por favor...");
             Object x = ctx.lookup(class_name);
             butler = (ButlerRemote) x;
         } catch (NamingException e) {
             System.out.println(e.getMessage());
             System.exit(2);
         }
-        //System.out.print("...JNDI lookup concluido\n");
+        System.out.print("...JNDI lookup concluido\n");
 
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        String s;
+        // --- not optimized for memory use! ---
+        String username;
+        String password;
+        String confirmPassword;
+        String newPassword;
+
+        String sender;
+        String recipient;
+        String title;
+        String body;
+        Date time;
+
+        String itemId;
+        int bid;
+
+        String motive;
+        
+        String itemName;
+        String description; 
+        int startPrice;
+        int buyout;
+        
+        int money;
+        
+        String name;
+        String newName;
+
+        //---------------------------------------
+        String opcao;
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("A conectar ao servidor. Aguarde por favor...");
-//        obtemReferenciaConcierge();
-//        obtemReferenciaPatron();
-        obtemReferenciaButler();
-        System.out.print("...JNDI lookup concluido\n");
+//        callConcierge();
+//        callPatron();
+        //JNDI Lookup Function
+        callButler();
 
         System.out.println("------------------------------------");
         System.out.println("-          Casa do Povo            -");
@@ -153,11 +176,12 @@ public class TpClientPd1617 {
             System.out.println("8 - Criar venda");
             System.out.println("9 - Seguir item");
             System.out.println("10 - Fazer licitação");
-            System.out.println("11 - Denunciar item ou user");
-            System.out.println("12 - Adicionar fundos");
-            System.out.println("13 - Pagar item");
-            System.out.println("14 - Pedir suspensao");
-            System.out.println("15 - Desactivar conta");
+            System.out.println("11 - Denunciar item");
+            System.out.println("12 - Denunciar user");
+            System.out.println("13 - Adicionar fundos");
+            System.out.println("14 - Pagar item");
+            System.out.println("15 - Pedir suspensao");
+//            System.out.println("16 - Desactivar conta");
             System.out.println("------------------------------------");
             System.out.println("16 - Suspender utilizador");
             System.out.println("17 - Reactivar utilizador");
@@ -169,135 +193,227 @@ public class TpClientPd1617 {
             System.out.println("-----------------------------------\n");
 
             System.out.print("Opcao -> ");
-            s = sc.nextLine();
+            opcao = sc.nextLine();
 
-            switch (s) {
+            switch (opcao) {
                 case "1":
-System.out.print("\n\t-Newsletter- ");
+                    System.out.print("\n\t-Newsletter- ");
                     System.out.println(butler.seeNews());
                     break;
+                    
                 case "2":
-System.out.print("\n\t-Ultimas 3 vendas- ");
+                    System.out.print("\n\t-Ultimas 3 vendas- ");
                     System.out.println(butler.seeLastThree());
                     break;
+                    
                 case "3":
-
-                    //ToDo ask input from user
-                     System.out.print("\n\t-Pedido de acesso- ");
-                     String username;
-                    String password;
-                    String confirmPassword;
-                     do{ 
-                    System.out.print("\nUsername: ");
-                    username=(String) sc.nextLine();
-                    System.out.print("\nPassword: ");
-                    password=(String) sc.nextLine();
-                    System.out.print("\nConfirme Password: ");
-                    confirmPassword=(String) sc.nextLine();
-                    if(!password.equals(confirmPassword)) System.out.print("\nErro! Password e Confirmacao nao sao iguais!");
-            }while(!password.equals(confirmPassword));                  
-        butler.askAccess(username, password);
+                    System.out.print("\n\t-Pedido de acesso- ");
+                    do {
+                        System.out.print("\nUsername: ");
+                        username = (String) sc.nextLine();
+                        System.out.print("\nPassword: ");
+                        password = (String) sc.nextLine();
+                        System.out.print("\nConfirme Password: ");
+                        confirmPassword = (String) sc.nextLine();
+                        if (!password.equals(confirmPassword)) {
+                            System.out.print("\nErro! Password e Confirmacao nao sao iguais!");
+                        }
+                    } while (!password.equals(confirmPassword));
+                    butler.askAccess(username, password);
                     break;
+                    
                 case "4":
-System.out.print("\n\t-Pedido de Reactivacao de Conta- ");
-                    //ToDo ask input from user
-//    butler.askReactivation(String username, String password);
+                    System.out.print("\n\t-Pedido de Reactivacao de Conta- ");
+                    System.out.print("\nUsername: ");
+                    username = (String) sc.nextLine();
+                    System.out.print("\nPassword: ");
+                    password = (String) sc.nextLine();
+                    butler.askReactivation(username, password);
                     break;
+                    
                 case "5":
-System.out.print("\n\t-Login- ");
-                    //ToDo ask input from user
-//    butler.login(String username, String password);
+                    System.out.print("\n\t-Login- ");
+                    System.out.print("\nUsername: ");
+                    username = (String) sc.nextLine();
+                    System.out.print("\nPassword: ");
+                    password = (String) sc.nextLine();
+                    butler.login(username, password);
                     break;
+                    
                 case "6":
-System.out.print("\n\t-Mudar Password- ");
-                    //ToDo ask input from user
-//    butler.changePassword(String username, String password, String confirmPassword);
+                    System.out.print("\n\t-Mudar Password- ");
+                    do {
+                        
+                        //ToDo: get username
+                        username = "placeholder for current user";
+                    
+                        System.out.print("\nPassword: ");
+                        password = (String) sc.nextLine();
+                        System.out.print("\nNova Password: ");
+                        newPassword = (String) sc.nextLine();
+                        System.out.print("\nConfirme Nova Password: ");
+                        confirmPassword = (String) sc.nextLine();
+                        if (!newPassword.equals(confirmPassword)) {
+                            System.out.print("\nErro! Nova Password e Confirmacao nao sao iguais!");
+                        }
+                    } while (!newPassword.equals(confirmPassword));
+                    butler.changePassword(username, password, newPassword, confirmPassword);
                     break;
+                    
                 case "7":
-System.out.print("\n\t-Envio de Mensagem- ");
-                    //ToDo ask input from user
-//    butler.messageUser(String senderId, String recipientId, String title, Date time);
+                    System.out.print("\n\t-Envio de Mensagem- ");
+
+                    //ToDo: get sender
+                    sender = "placeholder for current user";
+
+                    System.out.print("\nDestinatario: ");
+                    recipient = (String) sc.nextLine();
+                    System.out.print("\nTitulo: ");
+                    title = (String) sc.nextLine();
+                    System.out.print("\nCorpo: ");
+                    body = (String) sc.nextLine();
+
+                    //check this!
+                    time = new Date();
+
+                    butler.messageUser(sender, recipient, title, body, time);
                     break;
+                    
                 case "8":
-System.out.print("\n\t-Criacao de Venda- ");
-                    //ToDo ask input from user
-//    butler.doSale(String itemId);
+                    System.out.print("\n\t-Criacao de Venda- ");
+                                        
+                    //ToDo: get username
+                    username = "placeholder for current user";
+                    
+                    System.out.print("\nNome do item: ");
+                    itemName = (String) sc.nextLine();
+                    System.out.print("\nDescricao do item: ");
+                    description = (String) sc.nextLine(); 
+                    System.out.print("\nPreco inicial: ");
+                    startPrice = (int) sc.nextInt();
+                    System.out.print("\nPreco buyout: ");
+                    buyout = (int) sc.nextInt();
+                    butler.doSale(username, itemName, description, startPrice, buyout);
                     break;
 
                 case "9":
-System.out.print("\n\t-Seguir Item- ");
-                    //ToDo ask input from user
-//    butler.follow(String itemId);
+                    System.out.print("\n\t-Seguir Item- ");
+                    System.out.print("\nItemId: ");
+                    itemId = (String) sc.nextLine();
+                    butler.follow(itemId);
                     break;
+                    
                 case "10":
-System.out.print("\n\t-Fazer Licitacao- ");
-                    //ToDo ask input from user
-//    butler.doBid(String itemId);
+                    System.out.print("\n\t-Fazer Licitacao- ");
+                    System.out.print("\nItemId: ");
+                    itemId = (String) sc.nextLine();
+                    System.out.print("\nValor: ");
+                    bid = (int) sc.nextInt();
+                    butler.doBid(itemId, bid);
                     break;
+                    
                 case "11":
-System.out.print("\n\t-Denunciar Utilizador ou Item- ");
-                    //ToDo ask input from user
-//    butler.denunce(String userId, String itemId, String motive);
+                    System.out.print("\n\t-Denunciar Item- ");
+                    System.out.print("\nItemId: ");
+                    itemId = (String) sc.nextLine();
+                    System.out.print("\nMotivo: ");
+                    motive = (String) sc.nextLine();
+                    butler.denunceItem(itemId, motive);
                     break;
-
+                    
                 case "12":
-System.out.print("\n\t-Adicionar Saldo- ");
-                    //ToDo ask input from user
-//    butler.addBalance(int money);
-                    break;
-                case "13":
-System.out.print("\n\t-Pagar Item- ");
-                    //ToDo ask input from user
-//    butler.payItem(String itemId);
+                    System.out.print("\n\t-Denunciar Utilizador- ");
+                    System.out.print("\nUsername: ");
+                    username = (String) sc.nextLine();
+                    System.out.print("\nMotivo: ");
+                    motive = (String) sc.nextLine();
+                    butler.denunceUser(username, motive);
                     break;
 
-                case "14":
-System.out.print("\n\t-Pedir Suspensao- ");
-                    //ToDo ask input from user
-//    butler.askSuspension(String userId, String motive);
+                case "13":
+                    System.out.print("\n\t-Adicionar Saldo- ");
+                    
+                    //ToDo: get username
+                    username = "placeholder for current user";
+                    
+                    System.out.print("\nValor: ");
+                    money = (int) sc.nextInt();
+                    butler.addBalance(username,money);
                     break;
+                case "14":
+                    System.out.print("\n\t-Pagar Item- ");
+                    System.out.print("\nItemId: ");
+                    itemId = (String) sc.nextLine();
+                    butler.payItem(itemId);
+                    break;
+
                 case "15":
-System.out.print("\n\t-Desactivar Conta- ");
+                    System.out.print("\n\t-Pedir Suspensao- ");
+                    
+                    //ToDo: get username
+                    username = "placeholder for current user";
+                    
+                    System.out.print("\nMotivo: ");
+                    motive = (String) sc.nextLine();
+                    butler.askSuspension(username, motive);
+                    break;
+                    
+//                case "16":
+//                    System.out.print("\n\t-Desactivar Conta- ");
                     //ToDo ask input from user
 //    butler.unactivate(String userId);
-                    break;
+//                    break;
                 case "16":
-System.out.print("\n\t-Suspender Utilizador- ");
-                    //ToDo ask input from user
-//    butler.suspendUser(String userId, String motive);
+                    System.out.print("\n\t-Suspender Utilizador- ");
+                    System.out.print("\nUsername: ");
+                    username = (String) sc.nextLine();
+                    System.out.print("\nMotivo: ");
+                    motive = (String) sc.nextLine();
+                    butler.suspendUser(username, motive);
                     break;
 
                 case "17":
-System.out.print("\n\t-Reactivar Utilizador- ");
-                    //ToDo ask input from user
-//    butler.reactivateUser(String userId);
+                    System.out.print("\n\t-Reactivar Utilizador- ");
+                    System.out.print("\nUsername: ");
+                    username = (String) sc.nextLine();
+                    butler.reactivateUser(username);
                     break;
 
                 case "18":
-System.out.print("\n\t-Pesquisar Utilizador- ");
-                    //ToDo ask input from user
-//    butler.seeUser(String userId);
+                    System.out.print("\n\t-Pesquisar Utilizador- ");
+                    System.out.print("\nUsername: ");
+                    username = (String) sc.nextLine();
+                    butler.seeUser(username);
                     break;
 
                 case "19":
-System.out.print("\n\t-Pesquisar Item- ");
-                    //ToDo ask input from user
-//    butler.seeItem(String itemId);
+                    System.out.print("\n\t-Pesquisar Item- ");
+                    System.out.print("\nItemId: ");
+                    itemId= (String) sc.nextLine();
+                    butler.seeItem(itemId);
                     break;
 
                 case "20":
-System.out.print("\n\t-Adicionar Categoria- ");
-                    //ToDo ask input from user
-//butler.addCategory(String name, String description);
+                    System.out.print("\n\t-Adicionar Categoria- ");
+                    System.out.print("\nNome da Categoria: ");
+                    name = (String) sc.nextLine();
+                    System.out.print("\nDescricao: ");
+                    description = (String) sc.nextLine();
+                    butler.addCategory(name, description);
                     break;
 
                 case "21":
-System.out.print("\n\t-Alterar Categoria- ");
-                    //ToDo ask input from user
-//butler.changeCategory(String name, String newName, String description);
+                    System.out.print("\n\t-Alterar Categoria- ");
+                    System.out.print("\nNome da Categoria a alterar: ");
+                    name = (String) sc.nextLine();
+                    System.out.print("\nNovo Nome da Categoria: ");
+                    newName = (String) sc.nextLine();
+                    System.out.print("\nNova Descricao: ");
+                    description = (String) sc.nextLine();
+                    butler.changeCategory(name, newName, description);
                     break;
 
             }
-        } while (!s.equals("0"));
+        } while (!opcao.equals("0"));
     }
 }
