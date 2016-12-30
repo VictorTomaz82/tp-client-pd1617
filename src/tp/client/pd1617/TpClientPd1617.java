@@ -124,6 +124,9 @@ public class TpClientPd1617 {
         String username;
         String password;
         String confirmPassword;
+        String name;
+        String address;
+        int money;
         String newPassword;
 
         String sender;
@@ -142,9 +145,6 @@ public class TpClientPd1617 {
         int startPrice;
         int buyout;
 
-        int money;
-
-        String name;
         String newName;
 
         //---------------------------------------
@@ -165,24 +165,29 @@ public class TpClientPd1617 {
             System.out.println("------------------------------------");
             System.out.println("\t Bem vindo " + butler.getCurrentUsername() + "\n");
 
-            //if (butler.getCurrentUsername().equals("Visitante")) {
+            if (butler.getCurrentUsername().equals("Visitante")) {
                 System.out.println("1 - Ver Newsletter");
                 System.out.println("2 - Ver ultimas 3 vendas");
                 System.out.println("3 - Pedir acesso");
                 System.out.println("4 - Pedir reactivação de conta");
                 System.out.println("5 - Login");
-                //System.out.println("\n0 - Sair");
+                System.out.println("\n0 - Sair");
                 System.out.println("------------------------------------");
-           // } else if (butler.getCurrentUsername().equals("Admin")) {
+            } else if (butler.getCurrentUsername().equals("Admin")) {
+                System.out.println("1 - Ver Newsletter");
+                System.out.println("2 - Ver ultimas 3 vendas");
                 System.out.println("6 - Suspender utilizador");
-                System.out.println("7 - Reactivar utilizador");
+                System.out.println("7 - Activar/Reactivar utilizador");
                 System.out.println("8 - Ver utilizador");
                 System.out.println("9 - Ver item");
                 System.out.println("10 - Adicionar categoria");
                 System.out.println("11 - Alterar categoria");
-                //System.out.println("\n0 - Sair");
+                System.out.println("22 - Logout");
+                System.out.println("\n0 - Sair");
                 System.out.println("------------------------------------");
-           // } else {
+            } else {
+                System.out.println("1 - Ver Newsletter");
+                System.out.println("2 - Ver ultimas 3 vendas");
                 System.out.println("12 - Mudar password");
                 System.out.println("13 - Enviar mensagem a utilizador");
                 System.out.println("14 - Criar venda");
@@ -193,10 +198,11 @@ public class TpClientPd1617 {
                 System.out.println("19 - Adicionar fundos");
                 System.out.println("20 - Pagar item");
                 System.out.println("21 - Pedir suspensao");
+                System.out.println("22 - Logout");
                 System.out.println("\n0 - Sair");
 //            System.out.println("16 - Desactivar conta");
                 System.out.println("------------------------------------");
-            //}
+            }
 
             System.out.print("\nOpcao -> ");
             opcao = sc.nextLine();
@@ -221,11 +227,15 @@ public class TpClientPd1617 {
                         password = (String) sc.nextLine();
                         System.out.print("\nConfirme Password: ");
                         confirmPassword = (String) sc.nextLine();
+                        System.out.print("\nNome: ");
+                        name = (String) sc.nextLine();
+                        System.out.print("\nMorada: ");
+                        address = (String) sc.nextLine();
                         if (!password.equals(confirmPassword)) {
                             System.out.print("\nErro! Password e Confirmacao nao sao iguais!");
                         }
                     } while (!password.equals(confirmPassword));
-                    butler.askAccess(username, password);
+                    System.out.println(butler.askAccess(username, password, name, address));
                     break;
 
                 case "4":
@@ -234,7 +244,7 @@ public class TpClientPd1617 {
                     username = (String) sc.nextLine();
                     System.out.print("\nPassword: ");
                     password = (String) sc.nextLine();
-                    butler.askReactivation(username, password);
+                    System.out.println(butler.askReactivation(username, password));
                     break;
 
                 case "5":
@@ -243,7 +253,7 @@ public class TpClientPd1617 {
                     username = (String) sc.nextLine();
                     System.out.print("\nPassword: ");
                     password = (String) sc.nextLine();
-                    butler.login(username, password);
+                    System.out.println(butler.login(username, password));
                     break;
 
                 case "6":
@@ -252,28 +262,28 @@ public class TpClientPd1617 {
                     username = (String) sc.nextLine();
                     System.out.print("\nMotivo: ");
                     motive = (String) sc.nextLine();
-                    butler.suspendUser(username, motive);
+                    System.out.println(butler.suspendUser(username, motive));
                     break;
 
                 case "7":
                     System.out.print("\n\t-Reactivar Utilizador-");
                     System.out.print("\nUsername: ");
                     username = (String) sc.nextLine();
-                    butler.reactivateUser(username);
+                    System.out.println(butler.reactivateUser(username));
                     break;
 
                 case "8":
                     System.out.print("\n\t-Pesquisar Utilizador-");
                     System.out.print("\nUsername: ");
                     username = (String) sc.nextLine();
-                    butler.seeUser(username);
+                    System.out.println(butler.seeUser(username));
                     break;
 
                 case "9":
                     System.out.print("\n\t-Pesquisar Item-");
                     System.out.print("\nItemId: ");
                     itemId = (String) sc.nextLine();
-                    butler.seeItem(itemId);
+                    System.out.println(butler.seeItem(itemId));
                     break;
 
                 case "10":
@@ -282,7 +292,7 @@ public class TpClientPd1617 {
                     name = (String) sc.nextLine();
                     System.out.print("\nDescricao: ");
                     description = (String) sc.nextLine();
-                    butler.addCategory(name, description);
+                    System.out.println(butler.addCategory(name, description));
                     break;
 
                 case "11":
@@ -293,7 +303,7 @@ public class TpClientPd1617 {
                     newName = (String) sc.nextLine();
                     System.out.print("\nNova Descricao: ");
                     description = (String) sc.nextLine();
-                    butler.changeCategory(name, newName, description);
+                    System.out.println(butler.changeCategory(name, newName, description));
                     break;
 
                 case "12":
@@ -310,7 +320,7 @@ public class TpClientPd1617 {
                             System.out.print("\nErro! Nova Password e Confirmacao nao sao iguais!");
                         }
                     } while (!newPassword.equals(confirmPassword));
-                    butler.changePassword(username, password, newPassword, confirmPassword);
+                    System.out.println(butler.changePassword(username, password, newPassword, confirmPassword));
                     break;
 
                 case "13":
@@ -326,7 +336,7 @@ public class TpClientPd1617 {
                     //check this!
                     time = new Date();
 
-                    butler.messageUser(sender, recipient, title, body, time);
+                    System.out.println(butler.messageUser(sender, recipient, title, body, time));
                     break;
 
                 case "14":
@@ -340,14 +350,14 @@ public class TpClientPd1617 {
                     startPrice = (int) sc.nextInt();
                     System.out.print("\nPreco buyout: ");
                     buyout = (int) sc.nextInt();
-                    butler.doSale(username, itemName, description, startPrice, buyout);
+                    System.out.println(butler.doSale(username, itemName, description, startPrice, buyout));
                     break;
 
                 case "15":
                     System.out.print("\n\t-Seguir Item-");
                     System.out.print("\nItemId: ");
                     itemId = (String) sc.nextLine();
-                    butler.follow(itemId);
+                    System.out.println(butler.follow(itemId));
                     break;
 
                 case "16":
@@ -356,7 +366,7 @@ public class TpClientPd1617 {
                     itemId = (String) sc.nextLine();
                     System.out.print("\nValor: ");
                     bid = (int) sc.nextInt();
-                    butler.doBid(itemId, bid);
+                    System.out.println(butler.doBid(itemId, bid));
                     break;
 
                 case "17":
@@ -365,7 +375,7 @@ public class TpClientPd1617 {
                     itemId = (String) sc.nextLine();
                     System.out.print("\nMotivo: ");
                     motive = (String) sc.nextLine();
-                    butler.denunceItem(itemId, motive);
+                    System.out.println(butler.denunceItem(itemId, motive));
                     break;
 
                 case "18":
@@ -374,7 +384,7 @@ public class TpClientPd1617 {
                     username = (String) sc.nextLine();
                     System.out.print("\nMotivo: ");
                     motive = (String) sc.nextLine();
-                    butler.denunceUser(username, motive);
+                    System.out.println(butler.denunceUser(username, motive));
                     break;
 
                 case "19":
@@ -382,14 +392,14 @@ public class TpClientPd1617 {
                     username = butler.getCurrentUsername();
                     System.out.print("\nValor: ");
                     money = (int) sc.nextInt();
-                    butler.addBalance(username, money);
+                    System.out.println(butler.addBalance(username, money));
                     break;
 
                 case "20":
                     System.out.print("\n\t-Pagar Item-");
                     System.out.print("\nItemId: ");
                     itemId = (String) sc.nextLine();
-                    butler.payItem(itemId);
+                    System.out.println(butler.payItem(itemId));
                     break;
 
                 case "21":
@@ -397,7 +407,12 @@ public class TpClientPd1617 {
                     username = butler.getCurrentUsername();
                     System.out.print("\nMotivo: ");
                     motive = (String) sc.nextLine();
-                    butler.askSuspension(username, motive);
+                    System.out.println(butler.askSuspension(username, motive));
+                    break;
+
+                case "22":
+                    System.out.print("\n\t-Logout-\n");
+                    butler.logout();
                     break;
 
 //                case "16":
