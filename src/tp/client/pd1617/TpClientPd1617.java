@@ -1,5 +1,6 @@
 package tp.client.pd1617;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
@@ -84,6 +85,12 @@ public class TpClientPd1617 {
 //        //System.out.print("...JNDI lookup concluido\n");
 //
 //    }
+    static void printResponse(ArrayList<String> response) {
+        for (int i = 0; i < response.size(); i++) {
+            System.out.println(response.get(i));
+        }
+    }
+
     static void callButler() {
         InitialContext ctx = null;
         Properties prop = new Properties();
@@ -197,12 +204,13 @@ public class TpClientPd1617 {
                 default:
                     System.out.println("1 - Ver Newsletter");
                     System.out.println("2 - Ver ultimas 3 vendas");
+   //                 System.out.println("14 - Ver lista de categorias");
                     System.out.println("17 - Mudar password");
                     System.out.println("18 - Alterar informacoes do utilizador");
                     System.out.println("19 - Ver lista de mensagens");
-                    System.out.println("20 - Ver mensagen");
+                    System.out.println("20 - Ver mensagem");
                     System.out.println("21 - Enviar mensagem a utilizador");
-                    System.out.println("22- Criar venda");
+                    System.out.println("22 - Criar venda");
                     System.out.println("23 - Ver os meus items");
                     System.out.println("24 - Ver items a venda");
                     System.out.println("25 - Ver items licitados");
@@ -218,7 +226,7 @@ public class TpClientPd1617 {
                     System.out.println("35 - Pedir suspensao");
                     System.out.println("36 - Logout");
                     System.out.println("\n0 - Sair");
-                  //System.out.println("16 - Desactivar conta");
+                    //System.out.println("16 - Desactivar conta");
                     System.out.println("------------------------------------");
                     break;
             }
@@ -228,17 +236,17 @@ public class TpClientPd1617 {
 
             switch (opcao) {
                 case "1":
-                    System.out.print("\n\t-Newsletter-");
-                    System.out.println(butler.seeNews());
+                    System.out.println("\n\t-Newsletter-");
+                    printResponse(butler.seeNews());
                     break;
 
                 case "2":
-                    System.out.print("\n\t-Ultimas 3 vendas-");
-                    System.out.println(butler.seeLastThree());
+                    System.out.println("\n\t-Ultimas 3 vendas-");
+                    printResponse(butler.seeLastThree());
                     break;
 
                 case "3":
-                    System.out.print("\n\t-Pedido de acesso-");
+                    System.out.println("\n\t-Pedido de acesso-");
                     do {
                         System.out.print("\nUsername: ");
                         username = (String) sc.nextLine();
@@ -251,109 +259,109 @@ public class TpClientPd1617 {
                         System.out.print("\nMorada: ");
                         address = (String) sc.nextLine();
                         if (!password.equals(confirmPassword)) {
-                            System.out.print("\nErro! Password e Confirmacao nao sao iguais!");
+                            System.out.println("Erro! Password e Confirmacao nao sao iguais!");
                         }
                     } while (!password.equals(confirmPassword));
-                    System.out.println(butler.askAccess(username, password, name, address));
+                    printResponse(butler.askAccess(username, password, name, address));
                     break;
 
                 case "4":
-                    System.out.print("\n\t-Pedido de Reactivacao de Conta-");
+                    System.out.println("\n\t-Pedido de Reactivacao de Conta-");
                     System.out.print("\nUsername: ");
                     username = (String) sc.nextLine();
                     System.out.print("\nPassword: ");
                     password = (String) sc.nextLine();
-                    System.out.println(butler.askReactivation(username, password));
+                    printResponse(butler.askReactivation(username, password));
                     break;
 
                 case "5":
-                    System.out.print("\n\t-Login-");
+                    System.out.println("\n\t-Login-");
                     System.out.print("\nUsername: ");
                     username = (String) sc.nextLine();
                     System.out.print("\nPassword: ");
                     password = (String) sc.nextLine();
-                    System.out.println(butler.login(username, password));
+                    printResponse(butler.login(username, password));
                     break;
-                    
+
                 case "6":
-                    System.out.print("\n\t-Lista de Denuncias-");
-                    System.out.println(butler.viewDenunceList());
+                    System.out.println("\n\t-Lista de Denuncias-");
+                    printResponse(butler.viewDenunceList());
                     break;
-                    
+
                 case "7":
-                    System.out.print("\n\t-Suspender Utilizador-");
+                    System.out.println("\n\t-Suspender Utilizador-");
                     System.out.print("\nUsername: ");
                     username = (String) sc.nextLine();
                     System.out.print("\nMotivo: ");
                     motive = (String) sc.nextLine();
-                    System.out.println(butler.suspendUser(username, motive));
+                    printResponse(butler.suspendUser(username, motive));
                     break;
 
                 case "8":
-                    System.out.print("\n\t-Remover Item-");
+                    System.out.println("\n\t-Remover Item-");
                     System.out.print("\nItemId: ");
                     itemId = (String) sc.nextLine();
-                    System.out.println(butler.itemRemove(itemId));
+                    printResponse(butler.itemRemove(itemId));
                     break;
-                    
+
                 case "9":
-                    System.out.print("\n\t-Reactivar Utilizador-");
+                    System.out.println("\n\t-Reactivar Utilizador-");
                     System.out.print("\nUsername: ");
                     username = (String) sc.nextLine();
-                    System.out.println(butler.reactivateUser(username));
+                    printResponse(butler.reactivateUser(username));
                     break;
-                    
+
                 case "10":
-                    System.out.print("\n\t-Lista de Utilizadores-");
-                    System.out.println(butler.viewUserList());
+                    System.out.println("\n\t-Lista de Utilizadores-");
+                    printResponse(butler.viewUserList());
                     break;
-                    
+
                 case "11":
-                    System.out.print("\n\t-Pesquisar Utilizador-");
+                    System.out.println("\n\t-Pesquisar Utilizador-");
                     System.out.print("\nUsername: ");
                     username = (String) sc.nextLine();
-                    System.out.println(butler.seeUser(username));
+                    printResponse(butler.seeUser(username));
                     break;
 
                 case "12":
-                    System.out.print("\n\t-Lista de Items-");
-                    System.out.println(butler.viewItemList());
+                    System.out.println("\n\t-Lista de Items-");
+                    printResponse(butler.viewItemList());
                     break;
 
                 case "13":
-                    System.out.print("\n\t-Pesquisar Item-");
+                    System.out.println("\n\t-Pesquisar Item-");
                     System.out.print("\nItemId: ");
                     itemId = (String) sc.nextLine();
-                    System.out.println(butler.seeItem(itemId));
+                    printResponse(butler.seeItem(itemId));
                     break;
-                                       
+
                 case "14":
-                    System.out.print("\n\t-Lista de Categorias-");
-                    System.out.println(butler.viewCategoryList());
+                    System.out.println("\n\t-Lista de Categorias-");
+                    printResponse(butler.viewCategoryList());
                     break;
 
                 case "15":
-                    System.out.print("\n\t-Adicionar Categoria-");
+                    System.out.println("\n\t-Adicionar Categoria-");
                     System.out.print("\nNome da Categoria: ");
                     name = (String) sc.nextLine();
                     System.out.print("\nDescricao: ");
                     description = (String) sc.nextLine();
-                    System.out.println(butler.addCategory(name, description));
+                    printResponse(butler.addCategory(name, description));
                     break;
 
                 case "16":
-                    System.out.print("\n\t-Alterar Categoria-");
+                    System.out.println("\n\t-Alterar Categoria-");
                     System.out.print("\nNome da Categoria a alterar: ");
                     name = (String) sc.nextLine();
                     System.out.print("\nNovo Nome da Categoria: ");
                     newName = (String) sc.nextLine();
                     System.out.print("\nNova Descricao: ");
                     description = (String) sc.nextLine();
-                    System.out.println(butler.changeCategory(name, newName, description));
+                    printResponse(butler.changeCategory(name, newName, description));
                     break;
 
                 case "17":
-                    System.out.print("\n\t-Mudar Password-");
+                    System.out.println("\n\t-Mudar Password-");
                     do {
                         username = butler.getCurrentUsername();
                         System.out.print("\nPassword: ");
@@ -363,36 +371,35 @@ public class TpClientPd1617 {
                         System.out.print("\nConfirme Nova Password: ");
                         confirmPassword = (String) sc.nextLine();
                         if (!newPassword.equals(confirmPassword)) {
-                            System.out.print("\nErro! Nova Password e Confirmacao nao sao iguais!");
+                            System.out.println("Erro! Nova Password e Confirmacao nao sao iguais!");
                         }
                     } while (!newPassword.equals(confirmPassword));
-                    System.out.println(butler.changePassword(username, password, newPassword, confirmPassword));
+                    printResponse(butler.changePassword(username, password, newPassword, confirmPassword));
                     break;
 
-                    
                 case "18":
-                    System.out.print("\n\t-Alterar dados do utilizador-");
-                        System.out.print("\nNome: ");
-                        name = (String) sc.nextLine();
-                        System.out.print("\nMorada: ");
-                        address = (String) sc.nextLine();
-                    System.out.println(butler.changeUserInformation(name, address));
+                    System.out.println("\n\t-Alterar dados do utilizador-");
+                    System.out.print("\nNome: ");
+                    name = (String) sc.nextLine();
+                    System.out.print("\nMorada: ");
+                    address = (String) sc.nextLine();
+                    printResponse(butler.changeUserInformation(name, address));
                     break;
-                    
+
                 case "19":
-                    System.out.print("\n\t-Lista de Mensagens-");
-                    System.out.println(butler.viewMessageList());
+                    System.out.println("\n\t-Lista de Mensagens-");
+                    printResponse(butler.viewMessageList());
                     break;
-                    
+
                 case "20":
-                    System.out.print("\n\t-Ver Mensagem-");
+                    System.out.println("\n\t-Ver Mensagem-");
                     System.out.print("\nMessageId: ");
                     messageId = (String) sc.nextLine();
-                    System.out.println(butler.viewMessage(messageId));
+                    printResponse(butler.viewMessage(messageId));
                     break;
-                    
+
                 case "21":
-                    System.out.print("\n\t-Envio de Mensagem-");
+                    System.out.println("\n\t-Envio de Mensagem-");
                     sender = butler.getCurrentUsername();
                     System.out.print("\nDestinatario: ");
                     recipient = (String) sc.nextLine();
@@ -404,113 +411,115 @@ public class TpClientPd1617 {
                     //check this!
                     time = new Date();
 
-                    System.out.println(butler.messageUser(sender, recipient, title, body, time));
+                    printResponse(butler.messageUser(sender, recipient, title, body, time));
                     break;
 
                 case "22":
-                    System.out.print("\n\t-Criacao de Venda-");
+                    System.out.println("\n\t-Criacao de Venda-");
                     username = butler.getCurrentUsername();
                     System.out.print("\nNome do item: ");
                     itemName = (String) sc.nextLine();
+                    System.out.print("\nCategoria do item: ");
+                    name = (String) sc.nextLine();
                     System.out.print("\nDescricao do item: ");
                     description = (String) sc.nextLine();
                     System.out.print("\nPreco inicial: ");
                     startPrice = (int) sc.nextInt();
                     System.out.print("\nPreco buyout: ");
                     buyout = (int) sc.nextInt();
-                    System.out.println(butler.doSale(username, itemName, description, startPrice, buyout));
+                    printResponse(butler.doSale(username, itemName, name, description, startPrice, buyout));
                     break;
 
                 case "23":
-                    System.out.print("\n\t-Meus Items-");
-                    System.out.println(butler.viewUserItemsList());
+                    System.out.println("\n\t-Meus Items-");
+                    printResponse(butler.viewUserItemsList());
                     break;
-                    
+
                 case "24":
-                    System.out.print("\n\t-Items a Venda-");
-                    System.out.println(butler.viewSellingItemList());
+                    System.out.println("\n\t-Items a Venda-");
+                    printResponse(butler.viewSellingItemList());
                     break;
-                    
+
                 case "25":
-                    System.out.print("\n\t-Items Licitados-");
-                    System.out.println(butler.viewBiddedItemList());
+                    System.out.println("\n\t-Items Licitados-");
+                    printResponse(butler.viewBiddedItemList());
                     break;
-                    
+
                 case "26":
-                    System.out.print("\n\t-Items Ganhos-");
-                    System.out.println(butler.viewWonItemList());
+                    System.out.println("\n\t-Items Ganhos-");
+                    printResponse(butler.viewWonItemList());
                     break;
-                    
+
                 case "27":
-                    System.out.print("\n\t-Items Seguidos-");
-                    System.out.println(butler.viewFollowedItemList());
+                    System.out.println("\n\t-Items Seguidos-");
+                    printResponse(butler.viewFollowedItemList());
                     break;
-                    
+
                 case "28":
-                    System.out.print("\n\t-Seguir Item-");
+                    System.out.println("\n\t-Seguir Item-");
                     System.out.print("\nItemId: ");
                     itemId = (String) sc.nextLine();
-                    System.out.println(butler.follow(itemId));
+                    printResponse(butler.follow(itemId));
                     break;
 
                 case "29":
-                    System.out.print("\n\t-Fazer Licitacao-");
+                    System.out.println("\n\t-Fazer Licitacao-");
                     System.out.print("\nItemId: ");
                     itemId = (String) sc.nextLine();
                     System.out.print("\nValor: ");
                     bid = (int) sc.nextInt();
-                    System.out.println(butler.doBid(itemId, bid));
+                    printResponse(butler.doBid(itemId, bid));
                     break;
 
                 case "30":
-                    System.out.print("\n\t-Denunciar Item-");
+                    System.out.println("\n\t-Denunciar Item-");
                     System.out.print("\nItemId: ");
                     itemId = (String) sc.nextLine();
                     System.out.print("\nMotivo: ");
                     motive = (String) sc.nextLine();
-                    System.out.println(butler.denunceItem(itemId, motive));
+                    printResponse(butler.denunceItem(itemId, motive));
                     break;
 
                 case "31":
-                    System.out.print("\n\t-Denunciar Utilizador-");
+                    System.out.println("\n\t-Denunciar Utilizador-");
                     System.out.print("\nUsername: ");
                     username = (String) sc.nextLine();
                     System.out.print("\nMotivo: ");
                     motive = (String) sc.nextLine();
-                    System.out.println(butler.denunceUser(username, motive));
+                    printResponse(butler.denunceUser(username, motive));
                     break;
 
                 case "32":
-                    System.out.print("\n\t-Saldo-");
-                    System.out.println(butler.viewUserBalance());
+                    System.out.println("\n\t-Saldo-");
+                    printResponse(butler.viewUserBalance());
                     break;
-                    
+
                 case "33":
-                    System.out.print("\n\t-Adicionar Saldo-");
+                    System.out.println("\n\t-Adicionar Saldo-");
                     username = butler.getCurrentUsername();
                     System.out.print("\nValor: ");
                     money = (int) sc.nextInt();
-                    System.out.println(butler.addBalance(username, money));
+                    printResponse(butler.addBalance(username, money));
                     break;
 
                 case "34":
-                    System.out.print("\n\t-Pagar Item-");
+                    System.out.println("\n\t-Pagar Item-");
                     System.out.print("\nItemId: ");
                     itemId = (String) sc.nextLine();
-                    System.out.println(butler.payItem(itemId));
+                    printResponse(butler.payItem(itemId));
                     break;
 
                 case "35":
-                    System.out.print("\n\t-Pedir Suspensao-");
+                    System.out.println("\n\t-Pedir Suspensao-");
                     username = butler.getCurrentUsername();
                     System.out.print("\nMotivo: ");
                     motive = (String) sc.nextLine();
-                    System.out.println(butler.askSuspension(username, motive));
+                    printResponse(butler.askSuspension(username, motive));
                     break;
 
                 case "36":
-                    System.out.print("\n\t-Logout-\n");
-                    butler.logout();
+                    System.out.println("\n\t-Logout-\n");
+                    printResponse(butler.logout());
                     break;
 
 //                case "16":
