@@ -153,6 +153,7 @@ public class TpClientPd1617 {
         int startPrice;
         int buyout;
 
+        String categoryName;
         String newName;
 
         //---------------------------------------
@@ -419,15 +420,16 @@ public class TpClientPd1617 {
                     username = butler.getCurrentUsername();
                     System.out.print("\nNome do item: ");
                     itemName = (String) sc.nextLine();
-                    System.out.print("\nCategoria do item: ");
-                    name = (String) sc.nextLine();
+//                    System.out.print("\nCategoria do item: ");
+//                    categoryName = (String) sc.nextLine();
                     System.out.print("\nDescricao do item: ");
                     description = (String) sc.nextLine();
                     System.out.print("\nPreco inicial: ");
                     startPrice = (int) sc.nextInt();
                     System.out.print("\nPreco buyout: ");
                     buyout = (int) sc.nextInt();
-                    printResponse(butler.doSale(username, itemName, name, description, startPrice, buyout));
+ //                   printResponse(butler.doSale(username, itemName, categoryName, description, startPrice, buyout));
+                    printResponse(butler.doSale(username, itemName, description, startPrice, buyout));
                     break;
 
                 case "23":
