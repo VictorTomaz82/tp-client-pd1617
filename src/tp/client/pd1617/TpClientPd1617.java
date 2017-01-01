@@ -205,7 +205,7 @@ public class TpClientPd1617 {
                 default:
                     System.out.println("1 - Ver Newsletter");
                     System.out.println("2 - Ver ultimas 3 vendas");
-   //                 System.out.println("14 - Ver lista de categorias");
+                    System.out.println("14 - Ver lista de categorias");
                     System.out.println("17 - Mudar password");
                     System.out.println("18 - Alterar informacoes do utilizador");
                     System.out.println("19 - Ver lista de mensagens");
@@ -420,16 +420,15 @@ public class TpClientPd1617 {
                     username = butler.getCurrentUsername();
                     System.out.print("\nNome do item: ");
                     itemName = (String) sc.nextLine();
-//                    System.out.print("\nCategoria do item: ");
-//                    categoryName = (String) sc.nextLine();
+                    System.out.print("\nCategoria do item: ");
+                    categoryName = (String) sc.nextLine();
                     System.out.print("\nDescricao do item: ");
                     description = (String) sc.nextLine();
                     System.out.print("\nPreco inicial: ");
                     startPrice = (int) sc.nextInt();
                     System.out.print("\nPreco buyout: ");
                     buyout = (int) sc.nextInt();
- //                   printResponse(butler.doSale(username, itemName, categoryName, description, startPrice, buyout));
-                    printResponse(butler.doSale(username, itemName, description, startPrice, buyout));
+                    printResponse(butler.doSale(username, itemName, categoryName, description, startPrice, buyout));
                     break;
 
                 case "23":
