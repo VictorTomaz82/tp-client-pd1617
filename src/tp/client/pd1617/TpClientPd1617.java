@@ -122,7 +122,7 @@ public class TpClientPd1617 {
             System.out.println(e.getMessage());
             System.exit(2);
         }
-        System.out.print("...JNDI lookup concluido\n");
+        System.out.print("...JNDI lookup concluido\n\n");
 
     }
 
