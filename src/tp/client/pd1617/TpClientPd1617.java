@@ -10,81 +10,8 @@ import tpserver.*;
 
 public class TpClientPd1617 {
 
-//    static ConciergeRemote concierge;
-//    static PatronRemote patron;
     static ButlerRemote butler;
 
-//    static void callConcierge() {
-//        InitialContext ctx = null;
-//        Properties prop = new Properties();
-//
-//        prop.setProperty("java.naming.factory.initial",
-//                "com.sun.enterprise.naming.SerialInitContextFactory");
-//        prop.setProperty("java.naming.factory.url.pkgs",
-//                "com.sun.enterprise.naming");
-//        prop.setProperty("java.naming.factory.state",
-//                "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-//        prop.setProperty("org.omg.CORBA.ORBInitialHost", "192.168.56.175");
-//        prop.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
-//
-//        try {
-//            ctx = new InitialContext(prop);
-//        } catch (NamingException e) {
-//            System.out.println(e.getMessage());
-//            System.exit(1);
-//        }
-//        //System.out.println("InitialContext Criado");
-//
-//        String class_name
-//                = "java:global/tp-ea-pd1617/tp-ea-pd1617-ejb/Concierge!tpserver.ConciergeRemote";
-//
-//        try {
-//            //System.out.println("A conectar ao servidor. Aguarde por favor...");
-//            Object x = ctx.lookup(class_name);
-//            concierge = (ConciergeRemote) x;
-//        } catch (NamingException e) {
-//            System.out.println(e.getMessage());
-//            System.exit(2);
-//        }
-//        // System.out.print("...JNDI lookup concluido\n");
-//
-//    }
-//
-//    static void callPatron() {
-//        InitialContext ctx = null;
-//        Properties prop = new Properties();
-//
-//        prop.setProperty("java.naming.factory.initial",
-//                "com.sun.enterprise.naming.SerialInitContextFactory");
-//        prop.setProperty("java.naming.factory.url.pkgs",
-//                "com.sun.enterprise.naming");
-//        prop.setProperty("java.naming.factory.state",
-//                "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-//        prop.setProperty("org.omg.CORBA.ORBInitialHost", "192.168.56.175");
-//        prop.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
-//
-//        try {
-//            ctx = new InitialContext(prop);
-//        } catch (NamingException e) {
-//            System.out.println(e.getMessage());
-//            System.exit(1);
-//        }
-//        //System.out.println("InitialContext Criado");
-//
-//        String class_name
-//                = "java:global/tp-ea-pd1617/tp-ea-pd1617-ejb/Patron!tpserver.PatronRemote";
-//
-//        try {
-//            //System.out.println("A conectar ao servidor. Aguarde por favor...");
-//            Object x = ctx.lookup(class_name);
-//            patron = (PatronRemote) x;
-//        } catch (NamingException e) {
-//            System.out.println(e.getMessage());
-//            System.exit(2);
-//        }
-//        //System.out.print("...JNDI lookup concluido\n");
-//
-//    }
     static void printResponse(ArrayList<String> response) {
         for (int i = 0; i < response.size(); i++) {
             System.out.println(response.get(i));
@@ -123,7 +50,6 @@ public class TpClientPd1617 {
             System.exit(2);
         }
         System.out.print("...JNDI lookup concluido\n\n");
-
     }
 
     public static void main(String[] args) {
@@ -160,14 +86,9 @@ public class TpClientPd1617 {
         String opcao;
         Scanner sc = new Scanner(System.in);
 
-//        callConcierge();
-//        callPatron();
         //JNDI Lookup Function
         callButler();
 
-        // --- debug (begin) ---
-//        System.out.println("butler: " + butler.teste());
-        // --- debug (end) ---
         do {
             System.out.println("------------------------------------");
             System.out.println("-          Casa do Povo            -");
@@ -227,7 +148,6 @@ public class TpClientPd1617 {
                     System.out.println("35 - Pedir suspensao");
                     System.out.println("36 - Logout");
                     System.out.println("\n0 - Sair");
-                    //System.out.println("16 - Desactivar conta");
                     System.out.println("------------------------------------");
                     break;
             }
@@ -408,10 +328,7 @@ public class TpClientPd1617 {
                     title = (String) sc.nextLine();
                     System.out.print("\nCorpo: ");
                     body = (String) sc.nextLine();
-
-                    //check this!
                     time = new Date();
-
                     printResponse(butler.messageUser(sender, recipient, title, body, time));
                     break;
 
@@ -522,12 +439,7 @@ public class TpClientPd1617 {
                     System.out.println("\n\t-Logout-\n");
                     printResponse(butler.logout());
                     break;
-
-//                case "16":
-//                    System.out.print("\n\t-Desactivar Conta- ");
-                //ToDo ask input from user
-//    butler.unactivate(String userId);
-//                    break;
+                    
             }
         } while (!opcao.equals("0"));
     }
